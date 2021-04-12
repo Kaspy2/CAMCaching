@@ -2,7 +2,7 @@
 
 Website online at: https://camcaching.web.app/
 
-Use pull requests for adding to [location data](./public/locs.json).
+Use pull requests or directly edit the [location data](./public/locs.json).
 
 Make sure it's well formatted `JSON`:
 
