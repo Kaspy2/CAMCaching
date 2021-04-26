@@ -1,37 +1,65 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ĊAMCaching</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ĊAMCaching</title>
+    <link rel="icon" type="image/svg" href="/imgs/cam_thicc.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-  <link rel="icon" type="image/svg" href="/imgs/cam_thicc.svg" />
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <body>
+    <header>
+      <div class="logoContainer">
+        <a href="" class="logoLinkArea">
+          <div class="rotatingLogo">
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+          </div>
+        </a>
+      </div>
 
-<body>
-  <h1>ĊAMCaching</h1>
-  
-  <div class="rotatingLogo">
-    <img src="/imgs/cam.svg" alt="CAM svg logo">
-    <img src="/imgs/cam.svg" alt="CAM svg logo">
-    <img src="/imgs/cam.svg" alt="CAM svg logo">
-  </div>
+      <div class="titleContainer">
+        <h1>ĊAMCaching</h1>
+      </div>
+      <div class="searchContainer">
+        <input
+          type="text"
+          name="filterText"
+          id="filterText"
+          placeholder="Search"
+        />
+      </div>
+    </header>
 
-  <div id="mainContainer">
-    <div id="locsContainer"></div>
-  </div>
+    <main>
+      <div id="mainContainer">
+        <div id="locsContainer"></div>
+      </div>
+    </main>
 
-  <div class="filterFloat">
-    <input type="text" name="filterText" id="filterText" placeholder="Search">
-  </div>
+    <footer>
+      <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
+        <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
+      </a>
+      <a href="http://www.camyouths.com/" target="_blank">
+        <img
+          src="/imgs/web.svg"
+          alt="CAMYouths website link"
+          class="grayHover"
+        />
+      </a>
+    </footer>
 
-  <script src="locations.js"></script>
-</body>
-
+    <script src="locations.js"></script>
+  </body>
 </html>
 
-<!-- TODO: add title + website structure (instructions, about, donate?) -->
-<!-- TODO: add CAM logo SVG spinning animation when loading stuff -->
-<!-- TODO: modify styles -->
+<!-- TODO: scoreboard -->
+<!-- TODO: instructions/about section -->
+<!-- TODO: donate section - maybe stripe? -->
+<!-- TODO: team registration (team name + contact email + contact person or just team name for more chaos?) + cache submission form (select team name from list of teams, location id, upload photo/video, write new challenge) -->
+<!-- TODO: images slideshow -->
+<!-- TODO: interactive heatmap for caches found -->
