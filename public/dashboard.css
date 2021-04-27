@@ -1,0 +1,93 @@
+main {
+  text-align: center;
+}
+
+.mapContainer,
+.scoreboardContainer {
+  display: inline-flex;
+  width: clamp(200px, 80%, 800px);
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.scoreboardContainer {
+  margin-right: 10px;
+}
+
+.mapContainer {
+  height: fit-content;
+}
+
+.mapContainer > #heatmapContainer > canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mapContainer > #heatmapContainer > img {
+  width: 100%;
+}
+
+.styledTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styledTable thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center;
+}
+
+.styledTable th,
+.styledTable td {
+  padding: 12px 15px;
+}
+
+.styledTable tbody tr {
+  border-bottom: 1px solid #dddddd;
+  transition: all 0.15s linear;
+}
+
+.styledTable tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styledTable tbody tr:hover {
+  color: #009879;
+}
+
+@media only screen and (max-width: 600px) {
+  header {
+    height: 100px;
+  }
+  header > .titleContainer > h1 {
+    font-size: 2em;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+  header {
+    height: 100px;
+  }
+  header > .titleContainer > h1 {
+    font-size: 2em;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+  header {
+    height: 120px;
+  }
+
+  header > .titleContainer > h1 {
+    font-size: 3em;
+  }
+}

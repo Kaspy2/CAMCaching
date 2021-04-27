@@ -1,0 +1,93 @@
+div#mainContainer {
+  padding: 2em;
+  text-align: center;
+}
+
+div#locsContainer {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  column-count: 6;
+  column-gap: 1.5em;
+  column-fill: balance;
+}
+
+.locationCard {
+  padding: 0.3cm;
+  background-color: var(--card-bg-color);
+  display: inline-block;
+  text-align: left;
+  /* border: solid var(--main-border-color) 1pt; */
+  border-radius: 8pt;
+  width: 90%;
+  margin: 3pt 0;
+  box-shadow: 0px 1px 1px 0px rgb(0 0 0 / 18%);
+}
+
+.locationCard:hover {
+  background-color: var(--card-bg-color-hover);
+}
+
+.locationCard > * {
+  padding: 0;
+  margin: 10px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  div#locsContainer {
+    column-count: 1;
+  }
+  .locationCard {
+    width: 80%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+  div#locsContainer {
+    column-count: 2;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+  div#locsContainer {
+    column-count: 3;
+  }
+
+  #filterText {
+    margin-top: 45px;
+    margin-right: 30px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {
+  div#locsContainer {
+    column-count: 4;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {
+  div#locsContainer {
+    column-count: 5;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  div#locsContainer {
+    column-count: 6;
+  }
+}
+
+#filterText {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
