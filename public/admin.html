@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="notranslate" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>ĊAMCaching</title>
+
+    <link rel="icon" type="image/svg" href="/imgs/cam_thicc.svg" />
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/admin.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logoContainer"></div>
+
+      <div class="titleContainer">
+        <h1>ĊAMCaching Admin</h1>
+      </div>
+      <div class="searchContainer">
+        <button id="signOut">Sign Out</button>
+        <img id="profileIcon" src="imgs/user.svg" alt="User">
+      </div>
+    </header>
+
+    <main>
+      <div id="adminPanel" style="opacity: 0;">
+          ADMIN CONTENT
+      </div>
+    </main>
+
+    <!-- <footer>
+      <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
+        <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
+      </a>
+      <a href="http://www.camyouths.com/" target="_blank">
+        <img
+          src="/imgs/web.svg"
+          alt="CAMYouths website link"
+          class="grayHover"
+        />
+      </a>
+    </footer> -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/8.4.3/firebase-app.js"></script>
+    <script src="/__/firebase/8.4.2/firebase-auth.js"></script>
+    <script src="/__/firebase/8.4.2/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script> -->
+    
+
+    <script src="scripts/admin.js"></script>
+  </body>
+</html>

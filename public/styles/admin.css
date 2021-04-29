@@ -1,0 +1,25 @@
+#profileIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  float: right;
+  margin-left: 10px;
+}
+
+#signOut {
+  display: inline-block;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px #ccc solid;
+  text-decoration: none;
+  /* background-color: #ddd; */
+}
+
+#signOut:hover {
+  background-color: #ccc;
+}
+
+.searchContainer {
+  padding: 40px 10px;
+}
