@@ -25,13 +25,16 @@
         <h1>ĊAMCaching Admin</h1>
       </div>
       <div class="searchContainer">
-        <button id="signOut">Sign Out</button>
+        <button id="signOut" style="display: none;">Sign Out</button>
         <img id="profileIcon" src="imgs/user.svg" alt="User">
       </div>
     </header>
 
     <main>
-      <div id="adminPanel" style="opacity: 0;">
+      <div id="loader" class="rotatingLogo">
+        <img src="/imgs/cam.svg" alt="CAM svg logo" />
+      </div>
+      <div id="adminPanel" style="display: none;">
           ADMIN CONTENT
       </div>
     </main>

@@ -40,6 +40,14 @@ window.addEventListener("load", function () {
       });
   }
 
+  function showAdminPanel(){
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    document.getElementById("signOut").style.display = "inline-block";
+
+    // load admin form and viewer for uploading tasks
+  }
+
   firebase.auth().onAuthStateChanged(function (user) {
     if (signingOut) return;
     if (user) {
@@ -47,7 +55,7 @@ window.addEventListener("load", function () {
       checkUser(user);
 
       // show admin panel
-      document.getElementById("adminPanel").style.opacity = 1;
+      showAdminPanel();
     } else {
       // No user is signed in.
 
@@ -56,7 +64,7 @@ window.addEventListener("load", function () {
 
       firebase
         .auth()
-        .signInWithPopup(provider)
+        .signInWithRedirect(provider)
         .then((result) => {
           //   /** @type {firebase.auth.OAuthCredential} */
           //   var credential = result.credential;

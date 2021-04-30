@@ -23,3 +23,22 @@
 .searchContainer {
   padding: 40px 10px;
 }
+
+.rotatingLogo > img {
+  display: block;
+  position: static;
+  margin: 0 auto;
+  width: 30%;
+}
+
+.rotatingLogo > img {
+  -webkit-animation: spin 1.2s cubic-bezier(1, 0.05, 0.05, 1) infinite;
+  -moz-animation: spin 1.2s cubic-bezier(1, 0.05, 0.05, 1) infinite;
+  animation: spin 1.2s cubic-bezier(1, 0.05, 0.05, 1) infinite;
+}
+
+.rotatingLogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
