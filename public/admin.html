@@ -35,7 +35,17 @@
         <img src="/imgs/cam.svg" alt="CAM svg logo" />
       </div>
       <div id="adminPanel" style="display: none;">
-          ADMIN CONTENT
+          New Location Form
+          <form action="#" class="inputForm" id="locInputForm">
+            <input type="text" name="locName" id="locName" placeholder="Name*">
+            <input type="text" name="hint1" id="hint1" placeholder="Hint">
+            <div class="formGroup">
+              <input type="number" name="latitude" id="latitude" placeholder="Latitude*">
+              <input type="number" name="longitude" id="longitude" placeholder="Longitude*">
+              <button id="locationPinButton"><img src="/imgs/locationPin.svg" alt="Location Pin"></button>
+            </div>
+            <button type="submit" id="addLoc">Add Location</button>
+          </form>
       </div>
     </main>
 
@@ -60,8 +70,10 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
+    <!-- Initialize Firebase using Prod -->
+    <script src="/__/firebase/init.js"></script> 
+    <!-- Initialize Firebase using Emulator -->
+    <!-- <script src="/__/firebase/init.js?useEmulator=true"></script>  -->
 
     <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script> -->
     

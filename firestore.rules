@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    function isAdmin(userId) {
+      return exists(/databases/$(database)/documents/admins/$(userId));
+    }
+    
+    match /admins/{document} {
+      allow read: if request.auth != null;
+    }
+    
+    match /caches/{document} {
+    	allow read: if true;
+      allow write: if (request.auth != null) && isAdmin(request.auth.uid);
+    }
+    
+  }
+}
