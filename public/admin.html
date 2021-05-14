@@ -25,8 +25,8 @@
         <h1>ĊAMCaching Admin</h1>
       </div>
       <div class="searchContainer">
-        <button id="signOut" style="display: none;">Sign Out</button>
-        <img id="profileIcon" src="imgs/user.svg" alt="User">
+        <button id="signOut" style="display: none">Sign Out</button>
+        <img id="profileIcon" src="imgs/user.svg" alt="User" />
       </div>
     </header>
 
@@ -34,18 +34,49 @@
       <div id="loader" class="rotatingLogo">
         <img src="/imgs/cam.svg" alt="CAM svg logo" />
       </div>
-      <div id="adminPanel" style="display: none;">
-          New Location Form
-          <form action="#" class="inputForm" id="locInputForm">
-            <input type="text" name="locName" id="locName" placeholder="Name*">
-            <input type="text" name="hint1" id="hint1" placeholder="Hint">
-            <div class="formGroup">
-              <input type="number" name="latitude" id="latitude" placeholder="Latitude*">
-              <input type="number" name="longitude" id="longitude" placeholder="Longitude*">
-              <button id="locationPinButton"><img src="/imgs/locationPin.svg" alt="Location Pin"></button>
-            </div>
-            <button type="submit" id="addLoc">Add Location</button>
-          </form>
+      <div id="adminPanel" style="display: none">
+        New Location Form
+        <form action="#" class="inputForm" id="locInputForm">
+          <input type="text" name="locName" id="locName" placeholder="Name*" />
+          <input type="text" name="hint1" id="hint1" placeholder="Hint" />
+          <div class="formGroup">
+            <input
+              type="number"
+              name="latitude"
+              id="latitude"
+              placeholder="Latitude*"
+            />
+            <input
+              type="number"
+              name="longitude"
+              id="longitude"
+              placeholder="Longitude*"
+            />
+            <button id="locationPinButton">
+              <img src="/imgs/locationPin.svg" alt="Location Pin" />
+            </button>
+          </div>
+          <input
+            type="text"
+            name="challenge"
+            id="challenge"
+            placeholder="Challenge"
+          />
+          <button type="submit" id="addLoc">Add Location</button>
+        </form>
+        <div class="mapContainer">
+          <div id="heatmapContainer">
+            <img src="imgs/malta_color.svg" alt="Malta map" />
+          </div>
+        </div>
+      </div>
+      <div id="alerter" class="hidden">
+        <span
+          class="closebtn"
+          onclick="this.parentElement.classList.add('hidden');"
+          >&times;</span
+        >
+        <div id="alerterMessage"></div>
       </div>
     </main>
 
@@ -71,13 +102,15 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <!-- Initialize Firebase using Prod -->
-    <script src="/__/firebase/init.js"></script> 
+    <script src="/__/firebase/init.js"></script>
     <!-- Initialize Firebase using Emulator -->
     <!-- <script src="/__/firebase/init.js?useEmulator=true"></script>  -->
 
     <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script> -->
-    
+    <script src="scripts/heatmap.min.js"></script>
+    <script src="scripts/heatmapUtils.js"></script>
 
     <script src="scripts/admin.js"></script>
+    
   </body>
 </html>

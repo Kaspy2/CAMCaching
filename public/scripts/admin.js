@@ -31,12 +31,12 @@ window.addEventListener("load", function () {
           document.getElementById("profileIcon").src = u.photoURL;
         } else {
           // sign the user out
-          console.log("Bye imposter!");
+          alertMessage("Bye imposter!", "alert-error");
           signOut();
         }
       })
       .catch((error) => {
-        console.log("Error getting documents: ", error);
+        alertMessage("Error getting documents: " + error, "alert-error");
       });
   }
 
@@ -44,6 +44,11 @@ window.addEventListener("load", function () {
     document.getElementById("loader").style.display = "none";
     document.getElementById("adminPanel").style.display = "block";
     document.getElementById("signOut").style.display = "inline-block";
+
+    // load map
+    const heatmapContainer = document.getElementById("heatmapContainer");
+    const malta = heatmapContainer.children[0];
+    heatmap = initHeatmap(heatmapContainer, malta, 10, 1);
 
     // load admin form and viewer for uploading tasks
     var caches = db.collection("caches");
@@ -60,6 +65,7 @@ window.addEventListener("load", function () {
     var locName = document.getElementById("locName");
     var latitude = document.getElementById("latitude");
     var longitude = document.getElementById("longitude");
+    var challenge = document.getElementById("challenge");
 
     function addHint(e) {
       let oldHint = e.target.name;
@@ -111,6 +117,16 @@ window.addEventListener("load", function () {
           navigator.geolocation.getCurrentPosition((position) => {
             latitude.value = position.coords.latitude;
             longitude.value = position.coords.longitude; // TODO: display on map, add validation (min and max at 35.something, 14.something), optionally add image uploads
+
+            let mapLoc = globalToLocal(malta, [
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
+
+            heatmap.setData({
+              max: 1,
+              data: [{ x: mapLoc[0], y: mapLoc[1], value: 1 }],
+            });
           });
         } else {
           alert("Geolocation is not supported by this browser.");
@@ -134,13 +150,6 @@ window.addEventListener("load", function () {
           }
         }
 
-        console.log(
-          locName.value,
-          parseFloat(latitude.value),
-          parseFloat(longitude.value),
-          hints
-        );
-
         caches
           .add({
             name: locName.value,
@@ -149,18 +158,19 @@ window.addEventListener("load", function () {
               parseFloat(longitude.value)
             ),
             hints: hints,
+            challenge: challenge.value,
           })
           .then((docRef) => {
-            console.log("Added");
+            alertMessage("Location added successfully.", "alert-success");
           })
           .catch((error) => {
-            console.log("Error");
-            console.log(error);
+            alertMessage("Unable to add location: " + error, "alert-error");
           });
 
         locName.value = "";
         latitude.value = "";
         longitude.value = "";
+        challenge.value = "";
         // reset hint elements
         cleanHints();
 
@@ -217,10 +227,21 @@ window.addEventListener("load", function () {
           alert(
             `Unable to sign in.  Error code: ${error.code} - ${error.message}.`
           );
+          alertMessage("Unable to sign in", "alert-error");
           window.location.href = "/";
         });
     }
   });
 
   document.getElementById("signOut").addEventListener("click", signOut);
+
+  function alertMessage(msg, type = "alert-error") {
+    document.getElementById("alerterMessage").innerHTML = msg;
+    document.getElementById("alerter").classList.value = "";
+    document.getElementById("alerter").classList.add(type);
+
+    setTimeout(() => {
+      document.getElementById("alerter").classList.add("hidden");
+    }, 3000);
+  }
 });
