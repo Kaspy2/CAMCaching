@@ -86,7 +86,11 @@ window.addEventListener("load", function () {
           console.log("Modified location: ", change.doc.data());
         }
         if (change.type === "removed") {
-          console.log("Removed location: ", change.doc.data());
+          locsList[change.doc.id].remove();
+          alertMessage(
+            `Removed location: ${change.doc.data().name}`,
+            "alert-warning"
+          );
         }
       });
       firstAdd = false;
