@@ -40,6 +40,17 @@ window.addEventListener("load", function () {
       });
   }
 
+  function makeLoc(loc) {
+    var btn = document.createElement("BUTTON");
+    btn.type = "button";
+    btn.classList.add("list-group-item");
+    btn.classList.add("list-group-item-action");
+
+    btn.innerHTML = loc.name;
+
+    return btn;
+  }
+
   function showAdminPanel() {
     document.getElementById("loader").style.display = "none";
     document.getElementById("adminPanel").style.display = "block";
@@ -53,15 +64,37 @@ window.addEventListener("load", function () {
     // load admin form and viewer for uploading tasks
     var caches = db.collection("caches");
 
-    caches.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " = ", doc.data());
+    // load locations
+    const locsContainer = document.getElementById("locsContainer").children[0];
+    var locsList = {};
+    var firstAdd = true;
+
+    caches.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          let newButton = makeLoc(change.doc.data());
+          locsList[change.doc.id] = newButton;
+          locsContainer.appendChild(newButton);
+          if (!firstAdd) {
+            alertMessage(
+              `New location added: ${change.doc.data().name}`,
+              "alert-success"
+            );
+          }
+        }
+        if (change.type === "modified") {
+          console.log("Modified location: ", change.doc.data());
+        }
+        if (change.type === "removed") {
+          console.log("Removed location: ", change.doc.data());
+        }
       });
+      firstAdd = false;
     });
 
     locInputForm = document.getElementById("locInputForm");
 
-    var firstHint = document.getElementById("hint1"); // TODO: hint addition with `locInputForm.children['locName'].insertAdjacentHTML("afterend","test3")`
+    var firstHint = document.getElementById("hint1");
     var locName = document.getElementById("locName");
     var latitude = document.getElementById("latitude");
     var longitude = document.getElementById("longitude");
@@ -107,7 +140,7 @@ window.addEventListener("load", function () {
     firstHint.addEventListener("focus", addHint);
     firstHint.addEventListener("focusout", cleanHints);
 
-    // TODO: display caches and make a cache form for creating new caches, editing, approximate location display on map
+    // TODO: edit cache
     document
       .getElementById("locationPinButton")
       .addEventListener("click", (e) => {
@@ -116,7 +149,7 @@ window.addEventListener("load", function () {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
             latitude.value = position.coords.latitude;
-            longitude.value = position.coords.longitude; // TODO: display on map, add validation (min and max at 35.something, 14.something), optionally add image uploads
+            longitude.value = position.coords.longitude; // TODO: add validation (min and max at 35.something, 14.something), optionally add image uploads
 
             let mapLoc = globalToLocal(malta, [
               position.coords.latitude,
@@ -137,13 +170,13 @@ window.addEventListener("load", function () {
       e.preventDefault();
 
       let hints = [];
-      if (locName.value != "" && latitude.value && longitude.value) {
+      if (locName.value && latitude.value && longitude.value) {
         let children = locInputForm.children;
         for (var i = 0; i < children.length; i++) {
           if (
             children[i].name &&
             children[i].name.includes("hint") &&
-            children[i].value != ""
+            children[i].value
           ) {
             hints.push(children[i].value);
             children[i].value = "";
@@ -161,7 +194,7 @@ window.addEventListener("load", function () {
             challenge: challenge.value,
           })
           .then((docRef) => {
-            alertMessage("Location added successfully.", "alert-success");
+            // alertMessage("Location added successfully.", "alert-success");
           })
           .catch((error) => {
             alertMessage("Unable to add location: " + error, "alert-error");
@@ -178,20 +211,12 @@ window.addEventListener("load", function () {
         latitude.classList.remove("invalidInput");
         longitude.classList.remove("invalidInput");
       } else {
-        if (locName.value == "") {
-          locName.classList.add("invalidInput");
-        } else {
-          locName.classList.remove("invalidInput");
-        }
-        if (!latitude.value) {
-          latitude.classList.add("invalidInput");
-        } else {
-          latitude.classList.remove("invalidInput");
-        }
-        if (!longitude.value) {
-          longitude.classList.add("invalidInput");
-        } else {
-          longitude.classList.remove("invalidInput");
+        for (const elem of [locName, latitude, longitude]) {
+          if (!elem.value) {
+            elem.classList.add("invalidInput");
+          } else {
+            elem.classList.remove("invalidInput");
+          }
         }
       }
     });

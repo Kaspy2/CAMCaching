@@ -35,8 +35,11 @@
         <img src="/imgs/cam.svg" alt="CAM svg logo" />
       </div>
       <div id="adminPanel" style="display: none">
-        New Location Form
+        <!-- for adding new locations -->
         <form action="#" class="inputForm" id="locInputForm">
+          <p style="margin-top: 5px; margin-bottom: 0px; font-weight: bold">
+            New Location Form
+          </p>
           <input type="text" name="locName" id="locName" placeholder="Name*" />
           <input type="text" name="hint1" id="hint1" placeholder="Hint" />
           <div class="formGroup">
@@ -64,9 +67,25 @@
           />
           <button type="submit" id="addLoc">Add Location</button>
         </form>
+
+        <!-- for visualizing current coordinates -->
         <div class="mapContainer">
           <div id="heatmapContainer">
             <img src="imgs/malta_color.svg" alt="Malta map" />
+          </div>
+        </div>
+
+        <!-- for viewing locations in FireStore -->
+        <div id="locsContainer">
+          <div class="list-group">
+            <!-- <button
+              class="list-group-item list-group-item-action active"
+            ></button>
+            <button class="list-group-item list-group-item-action"></button>
+            <button
+              class="list-group-item list-group-item-action"
+              disabled
+            ></button> -->
           </div>
         </div>
       </div>
@@ -111,6 +130,5 @@
     <script src="scripts/heatmapUtils.js"></script>
 
     <script src="scripts/admin.js"></script>
-    
   </body>
 </html>

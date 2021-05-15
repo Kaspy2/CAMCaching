@@ -28,6 +28,8 @@ main {
   padding: 40px 10px;
 }
 
+/***** Loader *****/
+
 .rotatingLogo > img {
   display: block;
   position: static;
@@ -47,23 +49,35 @@ main {
   justify-content: center;
 }
 
+/***** Input Form *****/
+
 .inputForm {
-  background: var(--card-bg-color);
+  background: #0000000d;
   display: flex;
   flex-direction: column;
   width: clamp(200px, 90%, 500px);
   padding: 10px;
   margin: auto;
-  border: 1px solid var(--main-border-color);
+  border: 2px solid var(--main-border-color);
+  border-radius: 5px;
 }
 
 .inputForm > * {
   margin-bottom: 10px;
   height: 30px;
+  transition: all 0.5s linear;
 }
 
-.inputForm > :last-child {
+.inputForm > button:last-child {
   margin-bottom: 0px;
+  background-color: #04aa6d;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.inputForm > button:last-child:hover {
+  cursor: pointer;
+  background-color: #048a59;
 }
 
 .formGroup {
@@ -75,14 +89,29 @@ main {
   height: min-content;
 }
 
+.formGroup > * {
+  transition: all 0.5s linear;
+}
+
 .formGroup > input {
   width: calc((100% / 2) - 40px);
 }
 
+.formGroup > button {
+  /* border: 2px solid rgb(165, 165, 165);*/
+  padding: 2px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #04aa6d;
+}
+
+.formGroup > button:hover {
+  cursor: pointer;
+  background-color: #048a59;
+}
+
 #locationPinButton {
   width: 25px;
-  height: 100%;
-  padding: 0;
 }
 
 #locationPinButton > img {
@@ -101,8 +130,10 @@ input.invalidInput {
   border: 2px solid rgb(236, 73, 24);
 }
 
+/***** Alerter *****/
+
 #alerter {
-  position: absolute;
+  position: sticky;
   bottom: 10px;
   width: clamp(200px, 90%, 500px);
   left: 0;
@@ -149,6 +180,8 @@ input.invalidInput {
   display: none;
 }
 
+/***** Map Display *****/
+
 .mapContainer {
   display: inline-flex;
   width: clamp(200px, 80%, 500px);
@@ -164,4 +197,62 @@ input.invalidInput {
 
 .mapContainer > #heatmapContainer > img {
   width: 100%;
+}
+
+/***** Locations Container Display *****/
+
+#locsContainer {
+  width: clamp(200px, 90%, 500px);
+  padding: 10px;
+  margin: auto;
+}
+
+.list-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item-action {
+  width: 100%;
+  color: #495057;
+  text-align: inherit;
+}
+
+.list-group-item + .list-group-item {
+  border-top-width: 0;
+}
+
+.list-group-item.disabled,
+.list-group-item:disabled {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+}
+
+.list-group > button:not(:disabled) {
+  cursor: pointer;
 }
