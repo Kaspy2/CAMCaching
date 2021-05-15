@@ -2,20 +2,7 @@
 
 Website online at: https://camcaching.web.app/
 
-Use pull requests or directly edit the [location data](./public/locs.json).
-
-Make sure it's well formatted `JSON`:
-
-```python
-{
-    "location": "<location name>",
-    "hint": "<hint>" or ["<hint1>", "<hint2>", ...],
-    "coordinates": [
-        <latitude :: float>,
-        <longitude :: float>
-    ]
-}
-```
+Add new locations at: https://camcaching.web.app/admin
 
 To run locally, `firebase emulators:start` and go to the indicated `Hosting` site (usually `localhost:5000`).
 
@@ -36,3 +23,4 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 - Basic header + footer
 - Basic scoreboard
 - Basic heatmap
+- Admin page with location input form
