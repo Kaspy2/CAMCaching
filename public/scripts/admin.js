@@ -29,6 +29,38 @@ window.addEventListener("load", function () {
 
           // set icon
           document.getElementById("profileIcon").src = u.photoURL;
+
+          // create the firestore backup button for main admin
+          if (querySnapshot.docs[0].data().mainAdmin) {
+            document
+              .getElementById("firestoreDownload")
+              .addEventListener("click", async () => {
+                let collections = {};
+
+                // iterate over collections
+                for (const c of ["admins", "caches"]) {
+                  let querySnapshot = await db.collection(c).get();
+
+                  collections[c] = {};
+                  for (var i = 0; i < querySnapshot.size; i++) {
+                    collections[c][querySnapshot.docs[i].id] =
+                      querySnapshot.docs[i].data();
+                  }
+                }
+
+                // save
+                let a = document.createElement("a");
+                let file = new Blob([JSON.stringify(collections, null, 2)], {
+                  type: "text/json",
+                });
+                a.href = URL.createObjectURL(file);
+                a.download = "firestore_backup.json";
+                a.click();
+              });
+          } else {
+            document.getElementById("firestoreManagement").style.display =
+              "none";
+          }
         } else {
           // sign the user out
           alertMessage("Bye imposter!", "alert-error");
@@ -47,14 +79,48 @@ window.addEventListener("load", function () {
     btn.classList.add("list-group-item-action");
 
     btn.innerHTML = loc.name;
+    btn.setAttribute("loc-name", loc.name);
 
     return btn;
+  }
+
+  var sortTimerID;
+
+  function timedSort() {
+    clearTimeout(sortTimerID);
+
+    sortTimerID = setTimeout(() => {
+      let locsContainer = document.getElementById("locsContainer").children[0];
+      let locs = locsContainer.children;
+      let locNames = [];
+
+      // get all names
+      for (var i = 0; i < locs.length; i++) {
+        locNames.push(locs[i].getAttribute("loc-name"));
+      }
+
+      // order names
+      locNames.sort(function (a, b) {
+        return b.localeCompare(a);
+      });
+
+      // reorder divs
+      for (var i = 0; i < locs.length; i++) {
+        let currName = locNames.pop();
+        for (var j = 0; j < locs.length; j++) {
+          if (currName == locsContainer.children[j].getAttribute("loc-name")) {
+            locsContainer.appendChild(locsContainer.children[j]);
+            break;
+          }
+        }
+      }
+    }, 100);
   }
 
   function showAdminPanel() {
     document.getElementById("loader").style.display = "none";
     document.getElementById("adminPanel").style.display = "block";
-    document.getElementById("signOut").style.display = "inline-block";
+    document.getElementById("signOut").style.display = "inline-flex";
 
     // load map
     const heatmapContainer = document.getElementById("heatmapContainer");
@@ -81,9 +147,14 @@ window.addEventListener("load", function () {
               "alert-success"
             );
           }
+
+          timedSort();
         }
         if (change.type === "modified") {
           console.log("Modified location: ", change.doc.data());
+          // TODO: replace current button
+
+          timedSort();
         }
         if (change.type === "removed") {
           locsList[change.doc.id].remove();

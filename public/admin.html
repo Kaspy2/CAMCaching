@@ -25,8 +25,9 @@
         <h1>ĊAMCaching Admin</h1>
       </div>
       <div class="searchContainer">
-        <button id="signOut" style="display: none">Sign Out</button>
-        <img id="profileIcon" src="imgs/user.svg" alt="User" />
+        <button id="signOut" style="display: none">
+          Sign Out <img id="profileIcon" src="imgs/user.svg" alt="User" />
+        </button>
       </div>
     </header>
 
@@ -88,7 +89,14 @@
             ></button> -->
           </div>
         </div>
+
+        <!-- for downloading a whole copy of firestore  -->
+
+        <div id="firestoreManagement">
+          <button id="firestoreDownload">Download a Firestore Backup</button>
+        </div>
       </div>
+
       <div id="alerter" class="hidden">
         <span
           class="closebtn"
@@ -98,19 +106,6 @@
         <div id="alerterMessage"></div>
       </div>
     </main>
-
-    <!-- <footer>
-      <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
-        <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
-      </a>
-      <a href="http://www.camyouths.com/" target="_blank">
-        <img
-          src="/imgs/web.svg"
-          alt="CAMYouths website link"
-          class="grayHover"
-        />
-      </a>
-    </footer> -->
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="/__/firebase/8.4.3/firebase-app.js"></script>

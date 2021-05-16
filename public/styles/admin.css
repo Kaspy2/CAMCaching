@@ -11,13 +11,17 @@ main {
 }
 
 #signOut {
-  display: inline-block;
-  height: 40px;
+  display: inline-flex;
+  padding: 5px;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   cursor: pointer;
   border-radius: 8px;
   border: 1px #ccc solid;
   text-decoration: none;
-  /* background-color: #ddd; */
+  transition: all 0.5s linear;
 }
 
 #signOut:hover {
@@ -25,7 +29,16 @@ main {
 }
 
 .searchContainer {
-  padding: 40px 10px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  header > .searchContainer {
+    margin-bottom: 20px;
+  }
 }
 
 /***** Loader *****/
@@ -256,3 +269,24 @@ input.invalidInput {
 .list-group > button:not(:disabled) {
   cursor: pointer;
 }
+
+/***** Firestore Management Panel *****/
+#firestoreManagement {
+  margin: 10px;
+}
+
+#firestoreDownload {
+  padding: 10px;
+  background-color: cornflowerblue;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.49);
+  cursor: pointer;
+  transition: all 0.5s linear;
+}
+
+#firestoreDownload:hover {
+  background-color: rgb(26, 99, 235);
+}
+
