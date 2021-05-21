@@ -1,0 +1,73 @@
+#changesModalBG {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  display: none;
+  background: #00000080;
+}
+
+#changesModal {
+  background: #ffffff;
+  width: clamp(200px, 90%, 500px);
+  padding: 10px;
+  margin: auto;
+  border: 2px solid var(--main-border-color);
+  border-radius: 5px;
+  position: absolute;
+  top: 30%;
+  left: calc(50% - (clamp(200px, 90%, 500px) / 2));
+}
+
+#changesModal > span {
+  color: black;
+}
+
+#changesModal > span:hover {
+  color: rgb(80, 80, 80);
+}
+
+#changes {
+  display: flex;
+  flex-direction: column;
+}
+
+.changeRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px 0px;
+}
+
+.oldVersion {
+  color: red;
+}
+.newVersion {
+  color: green;
+}
+
+.inputForm > button {
+  margin-bottom: 10px;
+  background-color: #04aa6d;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.inputForm > button:hover:not(:disabled) {
+  cursor: pointer;
+  background-color: #048a59;
+}
+
+.inputForm > button:last-child {
+  margin-bottom: 0px;
+  background-color: #aa1704;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.inputForm > button:last-child:hover:not(:disabled) {
+  cursor: pointer;
+  background-color: #6b0e02;
+}

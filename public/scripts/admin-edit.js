@@ -29,38 +29,6 @@ window.addEventListener("load", function () {
 
           // set icon
           document.getElementById("profileIcon").src = u.photoURL;
-
-          // create the firestore backup button for main admin
-          if (querySnapshot.docs[0].data().mainAdmin) {
-            document
-              .getElementById("firestoreDownload")
-              .addEventListener("click", async () => {
-                let collections = {};
-
-                // iterate over collections
-                for (const c of ["admins", "caches"]) {
-                  let querySnapshot = await db.collection(c).get();
-
-                  collections[c] = {};
-                  for (var i = 0; i < querySnapshot.size; i++) {
-                    collections[c][querySnapshot.docs[i].id] =
-                      querySnapshot.docs[i].data();
-                  }
-                }
-
-                // save
-                let a = document.createElement("a");
-                let file = new Blob([JSON.stringify(collections, null, 2)], {
-                  type: "text/json",
-                });
-                a.href = URL.createObjectURL(file);
-                a.download = "firestore_backup.json";
-                a.click();
-              });
-          } else {
-            document.getElementById("firestoreManagement").style.display =
-              "none";
-          }
         } else {
           // sign the user out
           alertMessage("Bye imposter!", "alert-error");
@@ -72,61 +40,183 @@ window.addEventListener("load", function () {
       });
   }
 
-  function editLoc(e){
-    console.log(e.target)
+  function triggerFocus(element) {
+    var eventType = "onfocusin" in element ? "focusin" : "focus",
+      bubbles = "onfocusin" in element,
+      event;
 
-    let locID = e.target.getAttribute("loc-id");
+    if ("createEvent" in document) {
+      event = document.createEvent("Event");
+      event.initEvent(eventType, bubbles, true);
+    } else if ("Event" in window) {
+      event = new Event(eventType, { bubbles: bubbles, cancelable: true });
+    }
 
-    window.location = `/admin-edit?locID=${locID}`
+    element.focus();
+    element.dispatchEvent(event);
   }
 
-  function makeLoc(locID, loc) {
-    var btn = document.createElement("BUTTON");
-    btn.type = "button";
-    btn.classList.add("list-group-item");
-    btn.classList.add("list-group-item-action");
+  function showModal(cacheID, deleting = false, data = null) {
+    console.log(cacheID);
 
-    btn.innerHTML = loc.name;
-    btn.setAttribute("loc-name", loc.name);
-    btn.setAttribute("loc-id", locID);
+    const changes = document.getElementById("changes");
+    const confirmButton = document.getElementById("confirmButton");
 
-    btn.addEventListener('click', editLoc)
-    
+    if (deleting) {
+      // deleting
 
-    return btn;
-  }
+      changes.innerHTML = "";
+      confirmButton.innerHTML = "Confirm deletion";
 
-  var sortTimerID;
+      confirmButton.onclick = function () {
+        console.log("DELETE"); // TODO: this (show modal for confirmation, on confirm redirect)
+        // TODO: maybe -> move deleted locs to another collection for record-keeping
 
-  function timedSort() {
-    clearTimeout(sortTimerID);
+        // // redirect to admin
+        // window.location = "/admin";
+      };
+    } else {
+      // changing
+      let currData = data[0];
+      let updatedData = data[1];
 
-    sortTimerID = setTimeout(() => {
-      let locsContainer = document.getElementById("locsContainer").children[0];
-      let locs = locsContainer.children;
-      let locNames = [];
+      let diff = Object.keys(updatedData).reduce((diff, key) => {
+        if (JSON.stringify(currData[key]) === JSON.stringify(updatedData[key]))
+          return diff;
+        return [...diff, key];
+      }, []);
 
-      // get all names
-      for (var i = 0; i < locs.length; i++) {
-        locNames.push(locs[i].getAttribute("loc-name"));
+      let changeString = "";
+      for (const change of diff) {
+        changeString += `<div class="changeRow"><div class="oldVersion">${JSON.stringify(
+          currData[change],
+          null,
+          2
+        )}</div><div class="newVersion">${JSON.stringify(
+          updatedData[change],
+          null,
+          2
+        )}</div></div>`;
       }
 
-      // order names
-      locNames.sort(function (a, b) {
-        return b.localeCompare(a);
-      });
+      changes.innerHTML = changeString;
+      confirmButton.innerHTML = "Confirm changes";
 
-      // reorder divs
-      for (var i = 0; i < locs.length; i++) {
-        let currName = locNames.pop();
-        for (var j = 0; j < locs.length; j++) {
-          if (currName == locsContainer.children[j].getAttribute("loc-name")) {
-            locsContainer.appendChild(locsContainer.children[j]);
-            break;
+      confirmButton.onclick = function () {
+        // TODO: set in firestore and redirect on confirm
+        // // redirect to admin
+        // window.location = "/admin";
+      };
+    }
+
+    document.getElementById("changesModalBG").style.display = "block";
+  }
+
+  async function loadLocationData() {
+    var url = new URL(window.location.href);
+    var locID = url.searchParams.get("locID");
+
+    var cache = await db.collection("caches").doc(locID).get();
+
+    if (!cache.exists) {
+      alertMessage("Unable to find location!", "alert-error");
+      return;
+    }
+
+    let currData = cache.data();
+
+    let locName = document.getElementById("locName");
+    let firstHint = document.getElementById("hint1");
+    let latitude = document.getElementById("latitude");
+    let longitude = document.getElementById("longitude");
+    let challenge = document.getElementById("challenge");
+    let submitButton = document.getElementById("updateLoc");
+    let deleteButton = document.getElementById("deleteLoc");
+
+    locName.value = currData.name;
+    latitude.value = currData.coordinates.latitude;
+    longitude.value = currData.coordinates.longitude;
+    challenge.value = currData.challenge;
+
+    let hintsElements = [];
+
+    let lastHint = firstHint;
+    for (var i = 0; i < currData.hints.length; i++) {
+      triggerFocus(lastHint);
+      lastHint.value = currData.hints[i];
+      triggerFocus(locName);
+      lastHint = lastHint.nextElementSibling;
+      hintsElements.push(lastHint);
+    }
+
+    for (const elem of [
+      locName,
+      latitude,
+      longitude,
+      challenge,
+      firstHint,
+      submitButton,
+      deleteButton,
+      ...hintsElements,
+    ]) {
+      elem.disabled = false;
+    }
+
+    submitButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      let hints = [];
+      if (locName.value && latitude.value && longitude.value) {
+        let children = locInputForm.children;
+        for (var i = 0; i < children.length; i++) {
+          if (
+            children[i].name &&
+            children[i].name.includes("hint") &&
+            children[i].value
+          ) {
+            hints.push(children[i].value);
+          }
+        }
+
+        locName.classList.remove("invalidInput");
+        latitude.classList.remove("invalidInput");
+        longitude.classList.remove("invalidInput");
+
+        let updatedData = {
+          name: locName.value,
+          coordinates: new firebase.firestore.GeoPoint(
+            parseFloat(latitude.value),
+            parseFloat(longitude.value)
+          ),
+          hints: hints,
+          challenge: challenge.value,
+        };
+
+        // caches
+        //   .add(updatedData)
+        //   .then((docRef) => {
+        //     // alertMessage("Location added successfully.", "alert-success");
+        //   })
+        //   .catch((error) => {
+        //     alertMessage("Unable to add location: " + error, "alert-error");
+        //   });
+
+        showModal(locID, false, [currData, updatedData]);
+      } else {
+        for (const elem of [locName, latitude, longitude]) {
+          if (!elem.value) {
+            elem.classList.add("invalidInput");
+          } else {
+            elem.classList.remove("invalidInput");
           }
         }
       }
-    }, 100);
+    });
+
+    deleteButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      showModal(locID, true);
+    });
   }
 
   function showAdminPanel() {
@@ -141,43 +231,6 @@ window.addEventListener("load", function () {
 
     // load admin form and viewer for uploading tasks
     var caches = db.collection("caches");
-
-    // load locations
-    const locsContainer = document.getElementById("locsContainer").children[0];
-    var locsList = {};
-    var firstAdd = true;
-
-    caches.onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-          let newButton = makeLoc(change.doc.id, change.doc.data());
-          locsList[change.doc.id] = newButton;
-          locsContainer.appendChild(newButton);
-          if (!firstAdd) {
-            alertMessage(
-              `New location added: ${change.doc.data().name}`,
-              "alert-success"
-            );
-          }
-
-          timedSort();
-        }
-        if (change.type === "modified") {
-          console.log("Modified location: ", change.doc.data());
-          // TODO: replace current button
-
-          timedSort();
-        }
-        if (change.type === "removed") {
-          locsList[change.doc.id].remove();
-          alertMessage(
-            `Removed location: ${change.doc.data().name}`,
-            "alert-warning"
-          );
-        }
-      });
-      firstAdd = false;
-    });
 
     locInputForm = document.getElementById("locInputForm");
 
@@ -253,59 +306,14 @@ window.addEventListener("load", function () {
         }
       });
 
-    document.getElementById("addLoc").addEventListener("click", (e) => {
-      e.preventDefault();
+    // load location
+    loadLocationData(heatmap).then(() => {
+      let mapLoc = globalToLocal(malta, [latitude.value, longitude.value]);
 
-      let hints = [];
-      if (locName.value && latitude.value && longitude.value) {
-        let children = locInputForm.children;
-        for (var i = 0; i < children.length; i++) {
-          if (
-            children[i].name &&
-            children[i].name.includes("hint") &&
-            children[i].value
-          ) {
-            hints.push(children[i].value);
-            children[i].value = "";
-          }
-        }
-
-        caches
-          .add({
-            name: locName.value,
-            coordinates: new firebase.firestore.GeoPoint(
-              parseFloat(latitude.value),
-              parseFloat(longitude.value)
-            ),
-            hints: hints,
-            challenge: challenge.value,
-          })
-          .then((docRef) => {
-            // alertMessage("Location added successfully.", "alert-success");
-          })
-          .catch((error) => {
-            alertMessage("Unable to add location: " + error, "alert-error");
-          });
-
-        locName.value = "";
-        latitude.value = "";
-        longitude.value = "";
-        challenge.value = "";
-        // reset hint elements
-        cleanHints();
-
-        locName.classList.remove("invalidInput");
-        latitude.classList.remove("invalidInput");
-        longitude.classList.remove("invalidInput");
-      } else {
-        for (const elem of [locName, latitude, longitude]) {
-          if (!elem.value) {
-            elem.classList.add("invalidInput");
-          } else {
-            elem.classList.remove("invalidInput");
-          }
-        }
-      }
+      heatmap.setData({
+        max: 1,
+        data: [{ x: mapLoc[0], y: mapLoc[1], value: 1 }],
+      });
     });
   }
 

@@ -88,7 +88,7 @@ main {
   border-radius: 5px;
 }
 
-.inputForm > button:last-child:hover {
+.inputForm > button:last-child:hover:not(:disabled) {
   cursor: pointer;
   background-color: #048a59;
 }
@@ -118,7 +118,7 @@ main {
   background-color: #04aa6d;
 }
 
-.formGroup > button:hover {
+.formGroup > button:hover:not(:disabled) {
   cursor: pointer;
   background-color: #048a59;
 }
@@ -289,4 +289,3 @@ input.invalidInput {
 #firestoreDownload:hover {
   background-color: rgb(26, 99, 235);
 }
-

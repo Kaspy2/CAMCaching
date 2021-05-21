@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/admin.css" />
+    <link rel="stylesheet" href="styles/admin-edit.css" />
   </head>
 
   <body>
@@ -22,7 +23,7 @@
       <div class="logoContainer"></div>
 
       <div class="titleContainer">
-        <h1>ĊAMCaching Admin</h1>
+        <h1>ĊAMCaching Admin Edit</h1>
       </div>
       <div class="searchContainer">
         <button id="signOut" style="display: none">
@@ -39,22 +40,36 @@
         <!-- for adding new locations -->
         <form action="#" class="inputForm" id="locInputForm">
           <p style="margin-top: 5px; margin-bottom: 0px; font-weight: bold">
-            New Location Form
+            Edit Location Form
           </p>
-          <input type="text" name="locName" id="locName" placeholder="Name*" />
-          <input type="text" name="hint1" id="hint1" placeholder="Hint" />
+          <input
+            type="text"
+            name="locName"
+            id="locName"
+            placeholder="Name*"
+            disabled
+          />
+          <input
+            type="text"
+            name="hint1"
+            id="hint1"
+            placeholder="Hint"
+            disabled
+          />
           <div class="formGroup">
             <input
               type="number"
               name="latitude"
               id="latitude"
               placeholder="Latitude*"
+              disabled
             />
             <input
               type="number"
               name="longitude"
               id="longitude"
               placeholder="Longitude*"
+              disabled
             />
             <button id="locationPinButton">
               <img src="/imgs/locationPin.svg" alt="Location Pin" />
@@ -65,8 +80,10 @@
             name="challenge"
             id="challenge"
             placeholder="Challenge"
+            disabled
           />
-          <button type="submit" id="addLoc">Add Location</button>
+          <button type="submit" id="updateLoc" disabled>Update Location</button>
+          <button type="submit" id="deleteLoc" disabled>Delete Location</button>
         </form>
 
         <!-- for visualizing current coordinates -->
@@ -75,24 +92,17 @@
             <img src="imgs/malta_color.svg" alt="Malta map" />
           </div>
         </div>
+      </div>
 
-        <!-- for viewing locations in FireStore -->
-        <div id="locsContainer">
-          <div class="list-group">
-            <!-- <button
-              class="list-group-item list-group-item-action active"
-            ></button>
-            <button class="list-group-item list-group-item-action"></button>
-            <button
-              class="list-group-item list-group-item-action"
-              disabled
-            ></button> -->
-          </div>
-        </div>
-
-        <!-- for downloading a whole copy of firestore  -->
-        <div id="firestoreManagement">
-          <button id="firestoreDownload">Download a Firestore Backup</button>
+      <div id="changesModalBG">
+        <div id="changesModal">
+          <span
+            class="closebtn"
+            onclick="this.parentElement.parentElement.style.display='none';"
+            >&times;</span
+          >
+          <div id="changes"></div>
+          <button type="submit" id="confirmButton">Confirm changes</button>
         </div>
       </div>
 
@@ -111,18 +121,12 @@
     <script src="/__/firebase/8.4.2/firebase-auth.js"></script>
     <script src="/__/firebase/8.4.2/firebase-firestore.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
     <!-- Initialize Firebase using Prod -->
     <script src="/__/firebase/init.js"></script>
-    <!-- Initialize Firebase using Emulator -->
-    <!-- <script src="/__/firebase/init.js?useEmulator=true"></script>  -->
 
-    <!-- <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script> -->
     <script src="scripts/heatmap.min.js"></script>
     <script src="scripts/heatmapUtils.js"></script>
 
-    <script src="scripts/admin.js"></script>
+    <script src="scripts/admin-edit.js"></script>
   </body>
 </html>
