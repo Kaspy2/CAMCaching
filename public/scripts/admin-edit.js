@@ -57,8 +57,6 @@ window.addEventListener("load", function () {
   }
 
   function showModal(cacheID, deleting = false, data = null) {
-    console.log(cacheID);
-
     const changes = document.getElementById("changes");
     const confirmButton = document.getElementById("confirmButton");
 
@@ -87,6 +85,7 @@ window.addEventListener("load", function () {
       }, []);
 
       let changeString = "";
+      let updatedFields = {};
       for (const change of diff) {
         changeString += `<div class="changeRow"><div class="oldVersion">${JSON.stringify(
           currData[change],
@@ -97,15 +96,24 @@ window.addEventListener("load", function () {
           null,
           2
         )}</div></div>`;
+
+        updatedFields[change] = updatedData[change];
       }
 
       changes.innerHTML = changeString;
       confirmButton.innerHTML = "Confirm changes";
 
       confirmButton.onclick = function () {
-        // TODO: set in firestore and redirect on confirm
-        // // redirect to admin
-        // window.location = "/admin";
+        db.collection("caches")
+          .doc(cacheID)
+          .update(updatedFields)
+          .then(() => {
+            // redirect to admin
+            window.location = "/admin";
+          })
+          .catch((error) => {
+            alertMessage("Error updating document: " + error, "alert-error");
+          });
       };
     }
 
