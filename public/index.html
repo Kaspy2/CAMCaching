@@ -27,6 +27,11 @@
       </div>
     </main>
 
+    <audio controls autoplay hidden id="finalCountdown">
+      <!-- <source src="horse.ogg" type="audio/ogg" /> -->
+      <source src="finalCountdown.mp3" type="audio/mpeg" />
+    </audio>
+
     <footer>
       <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
         <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
@@ -82,6 +87,11 @@
           s.innerHTML = 0;
         }
       }, 1000);
+
+      window.onmousemove = function () {
+        document.getElementById("finalCountdown").play();
+        window.onmousemove = null;
+      };
     </script>
 
     <style>
