@@ -28,6 +28,16 @@
     </main>
 
     <div id="finalCountdown"></div>
+    <!-- <iframe
+      src="finalCountdown.mp3"
+      allow="autoplay"
+      style="display: none"
+      id="iframeAudio"
+    >
+    </iframe>
+    <audio autoplay loop id="playAudio">
+      <source src="finalCountdown.mp3" />
+    </audio> -->
 
     <footer>
       <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
@@ -91,17 +101,20 @@
       //       window.onmousemove = null;
       //     };
       //   });
-      let audioPlaying = true,
-        backgroundAudio,
-        browser;
-      browser = navigator.userAgent.toLowerCase();
-      document.getElementById("finalCountdown").innerHTML +=
-        '<audio class="audio1" src="finalCountdown.mp3" autoplay loop></audio>';
 
-      if (!browser.indexOf("firefox") > -1) {
+      document.addEventListener("DOMContentLoaded", (event) => {
+        let audioPlaying = true,
+          backgroundAudio,
+          browser;
+        browser = navigator.userAgent.toLowerCase();
         document.getElementById("finalCountdown").innerHTML +=
-          '<embed id="background-audio" src="finalCountdown.mp3" autostart="1"></embed>';
-      } 
+          '<audio class="audio1" src="finalCountdown.mp3" autoplay loop></audio>';
+
+        if (!browser.indexOf("firefox") > -1) {
+          document.getElementById("finalCountdown").innerHTML +=
+            '<embed id="background-audio" src="finalCountdown.mp3" autostart="1"></embed>';
+        }
+      });
     </script>
 
     <style>
