@@ -89,13 +89,84 @@
       }, 1000);
 
       document.addEventListener("DOMContentLoaded", (event) => {
+        window.ondblclick = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondblclick = null;
+        };
+
+        window.ondevicemotion = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondevicemotion = null;
+        };
+
+        window.ondeviceorientation = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondeviceorientation = null;
+        };
+
+        window.ondeviceorientationabsolute = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondeviceorientationabsolute = null;
+        };
+
+        window.ondrag = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondrag = null;
+        };
+
+        window.onfocus = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onfocus = null;
+        };
+
+        window.onkeypress = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onkeypress = null;
+        };
+
         window.onclick = function () {
-          document.getElementById("finalCountdown").play();
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
           window.onclick = null;
         };
-        
+
         window.onmousemove = function () {
-          document.getElementById("finalCountdown").play();
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
           window.onmousemove = null;
         };
       });
