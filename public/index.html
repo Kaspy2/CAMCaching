@@ -12,33 +12,18 @@
   </head>
 
   <body>
-    <header>
-      <div class="logoContainer">
-        <a href="dashboard" class="logoLinkArea">
-          <div class="rotatingLogo">
-            <img src="/imgs/cam.svg" alt="CAM svg logo" />
-            <img src="/imgs/cam.svg" alt="CAM svg logo" />
-            <img src="/imgs/cam.svg" alt="CAM svg logo" />
-          </div>
-        </a>
-      </div>
-
+    <header style="height: auto">
       <div class="titleContainer">
         <h1>ĊAMCaching</h1>
-      </div>
-      <div class="searchContainer">
-        <input
-          type="text"
-          name="filterText"
-          id="filterText"
-          placeholder="Search"
-        />
       </div>
     </header>
 
     <main>
       <div id="mainContainer">
-        <div id="locsContainer"></div>
+        <h1 id="days"></h1>
+        <h1 id="hours"></h1>
+        <h1 id="minutes"></h1>
+        <h1 id="seconds"></h1>
       </div>
     </main>
 
@@ -56,9 +41,127 @@
     </footer>
 
     <script src="/__/firebase/8.4.3/firebase-app.js"></script>
-    <script src="/__/firebase/8.4.2/firebase-firestore.js"></script>
     <script src="/__/firebase/init.js"></script>
 
-    <script src="scripts/locations.js"></script>
+    <script>
+      // Set the date we're counting down to
+      var countDownDate = new Date("Jun 7, 2021 00:00:00").getTime();
+
+      const d = document.getElementById("days");
+      const h = document.getElementById("hours");
+      const m = document.getElementById("minutes");
+      const s = document.getElementById("seconds");
+
+      // Update the count down every 1 second
+      var x = setInterval(function () {
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        d.innerHTML = days;
+        h.innerHTML = hours;
+        m.innerHTML = minutes;
+        s.innerHTML = seconds;
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(x);
+          d.innerHTML = 0;
+          h.innerHTML = 0;
+          m.innerHTML = 0;
+          s.innerHTML = 0;
+        }
+      }, 1000);
+    </script>
+
+    <style>
+      @keyframes color-change {
+        0% {
+          /* color: #264653; */
+          color: rgb(255, 85, 0);
+        }
+        25% {
+          /* color: #2a9d8f; */
+          color: rgb(255, 255, 0);
+        }
+        50% {
+          /* color: #e9c46a; */
+          color: rgb(0, 255, 0);
+        }
+        75% {
+          /* color: #f4a261; */
+          color: rgb(0, 213, 255);
+        }
+        100% {
+          /* color: #e76f51; */
+          color: rgb(153, 0, 255);
+        }
+      }
+
+      .titleContainer > h1 {
+        font-size: 12vw !important;
+        margin: 30px 0;
+      }
+      #mainContainer {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0 !important;
+      }
+
+      #mainContainer > h1 {
+        padding: 15px;
+        display: block;
+        border: solid 2px var(--main-txt-color);
+        border-radius: 5px;
+        font-size: 10vw;
+        background-color: var(--main-txt-color);
+        width: 20%;
+        margin: 0.6em 0;
+        animation: color-change 1s infinite;
+      }
+
+      #mainContainer > h1::after {
+        display: block;
+        font-size: 3vw;
+      }
+
+      #mainContainer > h1:nth-child(1):after {
+        content: "DAYS";
+      }
+      #mainContainer > h1:nth-child(2):after {
+        content: "HOURS";
+      }
+      #mainContainer > h1:nth-child(3):after {
+        content: "MINUTES";
+      }
+      #mainContainer > h1:nth-child(4):after {
+        content: "SECONDS";
+      }
+
+      @media only screen and (max-width: 900px) {
+        #mainContainer > h1:nth-child(1):after {
+          content: "D";
+        }
+        #mainContainer > h1:nth-child(2):after {
+          content: "H";
+        }
+        #mainContainer > h1:nth-child(3):after {
+          content: "M";
+        }
+        #mainContainer > h1:nth-child(4):after {
+          content: "S";
+        }
+      }
+    </style>
   </body>
 </html>

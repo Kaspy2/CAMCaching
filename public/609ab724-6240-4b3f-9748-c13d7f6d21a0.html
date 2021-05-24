@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="notranslate" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>ĊAMCaching</title>
+
+    <link rel="icon" type="image/svg" href="/imgs/cam_thicc.svg" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logoContainer">
+        <a href="dashboard" class="logoLinkArea">
+          <div class="rotatingLogo">
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+            <img src="/imgs/cam.svg" alt="CAM svg logo" />
+          </div>
+        </a>
+      </div>
+
+      <div class="titleContainer">
+        <h1>ĊAMCaching</h1>
+      </div>
+      <div class="searchContainer">
+        <input
+          type="text"
+          name="filterText"
+          id="filterText"
+          placeholder="Search"
+        />
+      </div>
+    </header>
+
+    <main>
+      <div id="mainContainer">
+        <div id="locsContainer"></div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
+        <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
+      </a>
+      <a href="http://www.camyouths.com/" target="_blank">
+        <img
+          src="/imgs/web.svg"
+          alt="CAMYouths website link"
+          class="grayHover"
+        />
+      </a>
+    </footer>
+
+    <script src="/__/firebase/8.4.3/firebase-app.js"></script>
+    <script src="/__/firebase/8.4.2/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="scripts/locations.js"></script>
+  </body>
+</html>
