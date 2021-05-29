@@ -15,7 +15,6 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 - images slideshow
 - interactive heatmap for caches found (~ interactive - currently set to a simple heatmap indicating zone popularity)
 - location deletion
-- tags
 
 # Done: 
 
@@ -27,3 +26,4 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 - Basic heatmap
 - Admin page with location input form
 - Location edit form
+- Tags

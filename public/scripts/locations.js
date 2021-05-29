@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // var pastelColors = ["#D4F0F0", "#8FCACA", "#CCE2CB", "#B6CFB6", "#97C1A9"];
+  // var pastelColors = ["#D5D6EA", "#F6F6EB", "#D7ECD9", "#F5D5CB", "#F6ECF5", "#F3DDF2"];
+  var pastelColors = [
+    "#D5D6EA",
+    "#F6F6EB",
+    "#D7ECD9",
+    "#F5D5CB",
+    "#F6ECF5",
+    "#FFC8A2",
+  ];
+  var currIndex = pastelColors.length;
+  function getNextPastelColor() {
+    currIndex += 1;
+    if (currIndex >= pastelColors.length) {
+      currIndex = 0;
+    }
+
+    return pastelColors[currIndex];
+  }
+
+  function getRandomPastelColor() {
+    let newIndex = Math.round(Math.random() * pastelColors.length);
+    while (currIndex == newIndex) {
+      newIndex = Math.round(Math.random() * pastelColors.length);
+    }
+    currIndex = newIndex;
+    return pastelColors[currIndex];
+  }
+
   function makeLoc(loc) {
     let locName = `<h4>${loc.name}</h4>`;
 
@@ -8,22 +37,22 @@ document.addEventListener("DOMContentLoaded", function () {
       ? `<p><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${loc.coordinates.latitude},${loc.coordinates.longitude}">Starting Point</a></p>`
       : "";
 
-    console.log(loc.tags);
-
     let tagMapping = {
       tr: "tag_tr.svg",
       hk: "tag_hk.svg",
     };
 
-    let locTags =
-      "<p>" +
-      (loc.tags
-        ? loc.tags.map((t) => `<img class="tag" src="imgs/${tagMapping[t]}" />`).join("")
-        : "") +
-      "</p>";
+    let locTags = loc.tags
+      ? loc.tags
+          .map((t) => `<img class="tag" src="imgs/${tagMapping[t]}" />`)
+          .join("")
+      : "";
+
+    locTags = locTags == "" ? "" : "<p>" + locTags + "</p>";
 
     var newLoc = document.createElement("DIV");
     newLoc.classList.add("locationCard");
+    newLoc.style.backgroundColor = getRandomPastelColor();
 
     newLoc.innerHTML = `${locName}${locHints}${locLink}${locTags}`;
 

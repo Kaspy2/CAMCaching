@@ -18,11 +18,12 @@ div#locsContainer {
   background-color: var(--card-bg-color);
   display: inline-block;
   text-align: left;
-  /* border: solid var(--main-border-color) 1pt; */
+  border: solid var(--main-border-color) 1pt;
   border-radius: 8pt;
   width: 90%;
   margin: 3pt 0;
-  box-shadow: 0px 1px 1px 0px rgb(0 0 0 / 18%);
+  /* box-shadow: 0px 1px 1px 3px rgb(0 0 0 / 18%); */
+  box-shadow: 0px 3px 3px 2px rgb(0 0 0 / 18%);
 }
 
 .locationCard.hidden {
@@ -34,18 +35,22 @@ div#locsContainer {
 }
 
 .locationCard > * {
-  padding: 0;
-  margin: 10px 0;
+  margin: 0;
+  padding: 8px 0;
+  border-bottom: #00000014 solid 1px;
+}
+
+.locationCard > :first-child {
+  text-align: center;
+}
+
+.locationCard > :last-child {
+  border-bottom: none;
 }
 
 .tag {
   width: 20px;
   height: 20px;
-}
-
-.tag > img {
-  max-width: 100%;
-  max-height: 100%;
 }
 
 @media only screen and (max-width: 600px) {

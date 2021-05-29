@@ -29,7 +29,7 @@ html {
 body {
   background: var(--main-bg-color);
   color: var(--main-txt-color);
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: Asap, Roboto, Helvetica, Arial, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
