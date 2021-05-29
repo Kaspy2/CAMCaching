@@ -90,5 +90,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function genChecklist(e) {
+    window.location = `/checklist`;
+  }
+
   document.getElementById("filterText").addEventListener("input", filterLocs);
+  document
+    .getElementById("genChecklist")
+    .addEventListener("click", genChecklist);
 });

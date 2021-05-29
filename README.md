@@ -15,6 +15,7 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 - images slideshow
 - interactive heatmap for caches found (~ interactive - currently set to a simple heatmap indicating zone popularity)
 - location deletion
+- locations checklist ("/checklist" page with 2 options: enter location ID (input field) + button to load checklist (redirects url to /checklist?id="...") or create new checklist - gen UUID or create a new firestore checklists entry)
 
 # Done: 
 
