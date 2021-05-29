@@ -186,9 +186,8 @@ window.addEventListener("load", function () {
     var longitude = document.getElementById("longitude");
     var tagTR = document.getElementById("tagTR");
     var tagHK = document.getElementById("tagHK");
-    var tagMP = document.getElementById("tagMP");
 
-    [tagTR, tagHK, tagMP].forEach((btn) => {
+    [tagTR, tagHK].forEach((btn) => {
       btn.onclick = function (e) {
         e.preventDefault();
 
@@ -288,10 +287,10 @@ window.addEventListener("load", function () {
         let gp =
           latv && lonv ? new firebase.firestore.GeoPoint(latv, lonv) : null;
 
-        let activeTags = [tagTR, tagHK, tagMP].map((btn) => {
+        let activeTags = [tagTR, tagHK].map((btn) => {
           return btn.getAttribute("status") == "active";
         });
-        let tagsList = ["tr", "hk", "mp"];
+        let tagsList = ["tr", "hk"];
 
         let tags = [];
 
@@ -318,7 +317,7 @@ window.addEventListener("load", function () {
         locName.value = "";
         latitude.value = "";
         longitude.value = "";
-        [tagTR, tagHK, tagMP].forEach((btn) => {
+        [tagTR, tagHK].forEach((btn) => {
           btn.setAttribute("status", "inactive");
         });
         // reset hint elements

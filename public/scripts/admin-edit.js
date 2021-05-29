@@ -139,7 +139,6 @@ window.addEventListener("load", function () {
     let longitude = document.getElementById("longitude");
     let tagTR = document.getElementById("tagTR");
     let tagHK = document.getElementById("tagHK");
-    let tagMP = document.getElementById("tagMP");
     let submitButton = document.getElementById("updateLoc");
     let deleteButton = document.getElementById("deleteLoc");
 
@@ -149,13 +148,13 @@ window.addEventListener("load", function () {
       longitude.value = currData.coordinates.longitude;
     }
 
-    let activeTags = ["tr", "hk", "mp"]
+    let activeTags = ["tr", "hk"]
       .map((x, i) => {
         return currData.tags.includes(x) ? i : -1;
       })
       .filter((x) => x != -1);
 
-    let tagsList = [tagTR, tagHK, tagMP];
+    let tagsList = [tagTR, tagHK];
     for (const i of activeTags) {
       console.log(i);
       tagsList[i].setAttribute("status", "active");
@@ -179,7 +178,6 @@ window.addEventListener("load", function () {
       firstHint,
       tagTR,
       tagHK,
-      tagMP,
       submitButton,
       deleteButton,
       ...hintsElements,
@@ -208,10 +206,10 @@ window.addEventListener("load", function () {
         let gp =
           latv && lonv ? new firebase.firestore.GeoPoint(latv, lonv) : null;
 
-        let activeTags = [tagTR, tagHK, tagMP].map((btn) => {
+        let activeTags = [tagTR, tagHK].map((btn) => {
           return btn.getAttribute("status") == "active";
         });
-        let tagsList = ["tr", "hk", "mp"];
+        let tagsList = ["tr", "hk"];
 
         let tags = [];
 
@@ -269,9 +267,8 @@ window.addEventListener("load", function () {
     var longitude = document.getElementById("longitude");
     var tagTR = document.getElementById("tagTR");
     var tagHK = document.getElementById("tagHK");
-    var tagMP = document.getElementById("tagMP");
 
-    [tagTR, tagHK, tagMP].forEach((btn) => {
+    [tagTR, tagHK].forEach((btn) => {
       btn.onclick = function (e) {
         e.preventDefault();
 
