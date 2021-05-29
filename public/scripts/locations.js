@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function getRandomPastelColor() {
-    let newIndex = Math.round(Math.random() * pastelColors.length);
+    let newIndex = Math.round(Math.random() * (pastelColors.length - 1));
     while (currIndex == newIndex) {
-      newIndex = Math.round(Math.random() * pastelColors.length);
+      newIndex = Math.round(Math.random() * (pastelColors.length - 1));
     }
     currIndex = newIndex;
     return pastelColors[currIndex];

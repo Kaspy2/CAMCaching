@@ -32,6 +32,7 @@ div#locsContainer {
 
 .locationCard:hover {
   background-color: var(--card-bg-color-hover);
+  filter: brightness(95%);
 }
 
 .locationCard > * {
