@@ -137,14 +137,29 @@ window.addEventListener("load", function () {
     let firstHint = document.getElementById("hint1");
     let latitude = document.getElementById("latitude");
     let longitude = document.getElementById("longitude");
-    let challenge = document.getElementById("challenge");
+    let tagTR = document.getElementById("tagTR");
+    let tagHK = document.getElementById("tagHK");
+    let tagMP = document.getElementById("tagMP");
     let submitButton = document.getElementById("updateLoc");
     let deleteButton = document.getElementById("deleteLoc");
 
     locName.value = currData.name;
-    latitude.value = currData.coordinates.latitude;
-    longitude.value = currData.coordinates.longitude;
-    challenge.value = currData.challenge;
+    if (currData.coordinates) {
+      latitude.value = currData.coordinates.latitude;
+      longitude.value = currData.coordinates.longitude;
+    }
+
+    let activeTags = ["tr", "hk", "mp"]
+      .map((x, i) => {
+        return currData.tags.includes(x) ? i : -1;
+      })
+      .filter((x) => x != -1);
+
+    let tagsList = [tagTR, tagHK, tagMP];
+    for (const i of activeTags) {
+      console.log(i);
+      tagsList[i].setAttribute("status", "active");
+    }
 
     let hintsElements = [];
 
@@ -161,8 +176,10 @@ window.addEventListener("load", function () {
       locName,
       latitude,
       longitude,
-      challenge,
       firstHint,
+      tagTR,
+      tagHK,
+      tagMP,
       submitButton,
       deleteButton,
       ...hintsElements,
@@ -174,7 +191,7 @@ window.addEventListener("load", function () {
       e.preventDefault();
 
       let hints = [];
-      if (locName.value && latitude.value && longitude.value) {
+      if (locName.value) {
         let children = locInputForm.children;
         for (var i = 0; i < children.length; i++) {
           if (
@@ -186,32 +203,36 @@ window.addEventListener("load", function () {
           }
         }
 
+        let latv = parseFloat(latitude.value);
+        let lonv = parseFloat(longitude.value);
+        let gp =
+          latv && lonv ? new firebase.firestore.GeoPoint(latv, lonv) : null;
+
+        let activeTags = [tagTR, tagHK, tagMP].map((btn) => {
+          return btn.getAttribute("status") == "active";
+        });
+        let tagsList = ["tr", "hk", "mp"];
+
+        let tags = [];
+
+        for (var i = 0; i < tagsList.length; i++) {
+          if (activeTags[i]) {
+            tags.push(tagsList[i]);
+          }
+        }
+
         locName.classList.remove("invalidInput");
-        latitude.classList.remove("invalidInput");
-        longitude.classList.remove("invalidInput");
 
         let updatedData = {
           name: locName.value,
-          coordinates: new firebase.firestore.GeoPoint(
-            parseFloat(latitude.value),
-            parseFloat(longitude.value)
-          ),
+          coordinates: gp,
           hints: hints,
-          challenge: challenge.value,
+          tags: tags,
         };
-
-        // caches
-        //   .add(updatedData)
-        //   .then((docRef) => {
-        //     // alertMessage("Location added successfully.", "alert-success");
-        //   })
-        //   .catch((error) => {
-        //     alertMessage("Unable to add location: " + error, "alert-error");
-        //   });
 
         showModal(locID, false, [currData, updatedData]);
       } else {
-        for (const elem of [locName, latitude, longitude]) {
+        for (const elem of [locName]) {
           if (!elem.value) {
             elem.classList.add("invalidInput");
           } else {
@@ -246,7 +267,21 @@ window.addEventListener("load", function () {
     var locName = document.getElementById("locName");
     var latitude = document.getElementById("latitude");
     var longitude = document.getElementById("longitude");
-    var challenge = document.getElementById("challenge");
+    var tagTR = document.getElementById("tagTR");
+    var tagHK = document.getElementById("tagHK");
+    var tagMP = document.getElementById("tagMP");
+
+    [tagTR, tagHK, tagMP].forEach((btn) => {
+      btn.onclick = function (e) {
+        e.preventDefault();
+
+        let newStatus =
+          e.currentTarget.getAttribute("status") == "active"
+            ? "inactive"
+            : "active";
+        e.currentTarget.setAttribute("status", newStatus);
+      };
+    });
 
     function addHint(e) {
       let oldHint = e.target.name;
@@ -288,7 +323,6 @@ window.addEventListener("load", function () {
     firstHint.addEventListener("focus", addHint);
     firstHint.addEventListener("focusout", cleanHints);
 
-    // TODO: edit cache
     document
       .getElementById("locationPinButton")
       .addEventListener("click", (e) => {
@@ -297,7 +331,7 @@ window.addEventListener("load", function () {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
             latitude.value = position.coords.latitude;
-            longitude.value = position.coords.longitude; // TODO: add validation (min and max at 35.something, 14.something), optionally add image uploads
+            longitude.value = position.coords.longitude;
 
             let mapLoc = globalToLocal(malta, [
               position.coords.latitude,

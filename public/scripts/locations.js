@@ -4,12 +4,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let locHints = loc.hints.map((x) => `<p>${x}</p>`).join("");
 
-    let locLink = `<p><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${loc.coordinates.latitude},${loc.coordinates.longitude}">Maps</a></p>`;
+    let locLink = loc.coordinates
+      ? `<p><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${loc.coordinates.latitude},${loc.coordinates.longitude}">Starting Point</a></p>`
+      : "";
+
+    console.log(loc.tags);
+
+    let tagMapping = {
+      tr: "tag_tr.svg",
+      hk: "tag_hk.svg",
+    };
+
+    let locTags =
+      "<p>" +
+      (loc.tags
+        ? loc.tags.map((t) => `<img class="tag" src="imgs/${tagMapping[t]}" />`).join("")
+        : "") +
+      "</p>";
 
     var newLoc = document.createElement("DIV");
     newLoc.classList.add("locationCard");
 
-    newLoc.innerHTML = `${locName}${locHints}${locLink}`;
+    newLoc.innerHTML = `${locName}${locHints}${locLink}${locTags}`;
 
     return newLoc;
   }

@@ -48,24 +48,36 @@
               type="number"
               name="latitude"
               id="latitude"
-              placeholder="Latitude*"
+              placeholder="Latitude"
+              min="35.78"
+              max="36.1"
             />
             <input
               type="number"
               name="longitude"
               id="longitude"
-              placeholder="Longitude*"
+              placeholder="Longitude"
+              min="14.16"
+              max="14.6"
             />
             <button id="locationPinButton">
               <img src="/imgs/locationPin.svg" alt="Location Pin" />
             </button>
           </div>
-          <input
-            type="text"
-            name="challenge"
-            id="challenge"
-            placeholder="Challenge"
-          />
+          <div class="formGroup tags">
+            <button id="tagTR">
+              <img
+                src="/imgs/tag_tr.svg"
+                alt="Time-restricted Tag"
+              />Time-restricted
+            </button>
+            <button id="tagHK">
+              <img src="/imgs/tag_hk.svg" alt="Hike Tag" />Hike
+            </button>
+            <button id="tagMP">
+              <img src="/imgs/tag_mp.svg" alt="Multiplayer Tag" />Multiplayer
+            </button>
+          </div>
           <button type="submit" id="addLoc">Add Location</button>
         </form>
 

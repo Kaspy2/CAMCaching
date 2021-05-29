@@ -8,10 +8,10 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 
 # TODO:
 
-- scoreboard
+- Rules
 - instructions/about section
+- scoreboard
 - donate section - maybe stripe?
-- team registration (team name + contact email + contact person or just team name for more chaos?) + cache submission form (select team name from list of teams, location id, upload photo/video, write new challenge)
 - images slideshow
 - interactive heatmap for caches found (~ interactive - currently set to a simple heatmap indicating zone popularity)
 - location deletion

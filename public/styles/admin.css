@@ -143,6 +143,41 @@ input.invalidInput {
   border: 2px solid rgb(236, 73, 24);
 }
 
+.tags {
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.tags > button {
+  /* width: calc((100% / 3) - 100px); */
+  background-color: #09a5e2;
+  height: 34px;
+  /* width: 34px; */
+  display: inline-flex;
+  align-content: center;
+  align-items: center;
+  padding: 5px 5px;
+}
+
+.tags > button:hover:not(:disabled) {
+  background-color: #077caa;
+}
+
+.tags > button[status="active"] {
+  background-color: rgb(9, 202, 51);
+}
+
+.tags > button[status="active"]:hover:not(:disabled) {
+  background-color: rgb(6, 141, 36);
+}
+
+.tags > button > img {
+  /* width: 100%; */
+  max-height: 100%;
+}
+
 /***** Alerter *****/
 
 #alerter {

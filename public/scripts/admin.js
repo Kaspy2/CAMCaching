@@ -72,12 +72,12 @@ window.addEventListener("load", function () {
       });
   }
 
-  function editLoc(e){
-    console.log(e.target)
+  function editLoc(e) {
+    console.log(e.target);
 
     let locID = e.target.getAttribute("loc-id");
 
-    window.location = `/admin-edit?locID=${locID}`
+    window.location = `/admin-edit?locID=${locID}`;
   }
 
   function makeLoc(locID, loc) {
@@ -90,8 +90,7 @@ window.addEventListener("load", function () {
     btn.setAttribute("loc-name", loc.name);
     btn.setAttribute("loc-id", locID);
 
-    btn.addEventListener('click', editLoc)
-    
+    btn.addEventListener("click", editLoc);
 
     return btn;
   }
@@ -185,7 +184,21 @@ window.addEventListener("load", function () {
     var locName = document.getElementById("locName");
     var latitude = document.getElementById("latitude");
     var longitude = document.getElementById("longitude");
-    var challenge = document.getElementById("challenge");
+    var tagTR = document.getElementById("tagTR");
+    var tagHK = document.getElementById("tagHK");
+    var tagMP = document.getElementById("tagMP");
+
+    [tagTR, tagHK, tagMP].forEach((btn) => {
+      btn.onclick = function (e) {
+        e.preventDefault();
+
+        let newStatus =
+          e.currentTarget.getAttribute("status") == "active"
+            ? "inactive"
+            : "active";
+        e.currentTarget.setAttribute("status", newStatus);
+      };
+    });
 
     function addHint(e) {
       let oldHint = e.target.name;
@@ -257,7 +270,7 @@ window.addEventListener("load", function () {
       e.preventDefault();
 
       let hints = [];
-      if (locName.value && latitude.value && longitude.value) {
+      if (locName.value) {
         let children = locInputForm.children;
         for (var i = 0; i < children.length; i++) {
           if (
@@ -270,15 +283,30 @@ window.addEventListener("load", function () {
           }
         }
 
+        let latv = parseFloat(latitude.value);
+        let lonv = parseFloat(longitude.value);
+        let gp =
+          latv && lonv ? new firebase.firestore.GeoPoint(latv, lonv) : null;
+
+        let activeTags = [tagTR, tagHK, tagMP].map((btn) => {
+          return btn.getAttribute("status") == "active";
+        });
+        let tagsList = ["tr", "hk", "mp"];
+
+        let tags = [];
+
+        for (var i = 0; i < tagsList.length; i++) {
+          if (activeTags[i]) {
+            tags.push(tagsList[i]);
+          }
+        }
+
         caches
           .add({
             name: locName.value,
-            coordinates: new firebase.firestore.GeoPoint(
-              parseFloat(latitude.value),
-              parseFloat(longitude.value)
-            ),
+            coordinates: gp,
             hints: hints,
-            challenge: challenge.value,
+            tags: tags,
           })
           .then((docRef) => {
             // alertMessage("Location added successfully.", "alert-success");
@@ -290,7 +318,9 @@ window.addEventListener("load", function () {
         locName.value = "";
         latitude.value = "";
         longitude.value = "";
-        challenge.value = "";
+        [tagTR, tagHK, tagMP].forEach((btn) => {
+          btn.setAttribute("status", "inactive");
+        });
         // reset hint elements
         cleanHints();
 
@@ -298,7 +328,7 @@ window.addEventListener("load", function () {
         latitude.classList.remove("invalidInput");
         longitude.classList.remove("invalidInput");
       } else {
-        for (const elem of [locName, latitude, longitude]) {
+        for (const elem of [locName]) {
           if (!elem.value) {
             elem.classList.add("invalidInput");
           } else {
