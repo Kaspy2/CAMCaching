@@ -12,12 +12,117 @@
   margin: auto;
 }
 
-.preContainer > * {
+.preContainer > input,
+.preContainer > button {
   margin-bottom: 10px;
   height: 25px;
   transition: all 0.5s linear;
 }
 
 #createChecklist {
-    margin-top: 5px;
+  margin-top: 5px;
+}
+
+.wideContainer {
+  width: clamp(400px, 70%, 800px);
+}
+
+#todoContainer,
+#doneContainer {
+  flex-direction: column;
+  height: unset;
+  column-count: 2;
+  column-gap: 1.5em;
+  column-fill: balance;
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #todoContainer,
+  #doneContainer {
+    column-count: 1;
+  }
+}
+
+#todoContainer > *,
+#doneContainer > * {
+  display: inline-flex;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  transition: all 0.2s linear;
+}
+
+#todoContainer > *:hover,
+#doneContainer > *:hover {
+  cursor: pointer;
+  filter: brightness(80%);
+}
+
+#todoContainer > * {
+  background-color: rgba(0, 133, 133, 0.336);
+}
+
+#doneContainer > * {
+  background-color: rgba(14, 167, 0, 0.61);
+}
+
+#todoContainer > *::after,
+#doneContainer > *::after {
+  content: "✔";
+  display: block;
+  border: 1px solid rgb(99, 99, 99);
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.411);
+  height: 16px;
+  line-height: 16px;
+  width: 16px;
+  text-align: center;
+  transition: all 0.5s ease-out;
+}
+
+#todoContainer > *::after {
+  content: "";
+}
+
+#todoContainer > *:hover::after,
+#doneContainer > *:hover::after {
+  transform: rotate(360deg);
+}
+
+.shareContainer {
+  text-align: center;
+  margin: 20px;
+}
+
+#share {
+  display: flex;
+  margin: auto;
+  padding: 5px;
+  height: 40px;
+  font-size: 15pt;
+  line-height: 40px;
+  align-content: center;
+  align-items: center;
+  transition: all 0.5s linear;
+  background-color: rgba(244, 248, 0, 0.411);
+  border: 1px solid rgb(124, 124, 124);
+  border-radius: 5px;
+}
+
+#share:hover {
+  cursor: pointer;
+  background-color: rgba(142, 145, 0, 0.411);
+}
+
+#share > img {
+  height: 100%;
+  margin-right: 10px;
 }

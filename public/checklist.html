@@ -18,7 +18,7 @@
   <body>
     <header style="height: auto">
       <div class="titleContainer">
-        <h1>ĊAMCaching</h1>
+        <h1>ĊAMCaching Checklist</h1>
       </div>
     </header>
 
@@ -33,6 +33,12 @@
           />
           <button id="loadChecklist">Load Checklist</button>
           <button id="createChecklist">Create Checklist</button>
+        </div>
+        <div class="shareContainer">
+          <button id="share">
+            <img src="imgs/share.svg" alt="Share" />
+            Share this checklist
+          </button>
         </div>
       </div>
     </main>
@@ -49,6 +55,12 @@
         />
       </a>
     </footer>
+
+    <input
+      type="text"
+      style="position: absolute; display: block; opacity: 0; top: 0; left: 0"
+      id="hiddenInput"
+    />
 
     <script src="/__/firebase/8.4.3/firebase-app.js"></script>
     <script src="/__/firebase/8.4.2/firebase-firestore.js"></script>

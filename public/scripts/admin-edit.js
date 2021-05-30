@@ -150,7 +150,7 @@ window.addEventListener("load", function () {
 
     let activeTags = ["tr", "hk"]
       .map((x, i) => {
-        return currData.tags.includes(x) ? i : -1;
+        return currData.tags && currData.tags.includes(x) ? i : -1;
       })
       .filter((x) => x != -1);
 

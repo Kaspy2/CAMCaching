@@ -7,6 +7,10 @@
   --footer-size: 40px;
 }
 
+* {
+  font-family: Asap, Roboto, Helvetica, Arial, sans-serif;
+}
+
 *::-webkit-scrollbar {
   width: 5px;
   height: 5px;
