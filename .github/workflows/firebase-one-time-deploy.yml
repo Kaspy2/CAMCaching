@@ -10,9 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Check time
         run: |
-          [[ $(printf "%(%Y%m%d)T\n" $EPOCHSECONDS) > "20210603" ]] && echo "ok" || exit 1
-      - name: Rename rules
-        run: mv public/rules.pdf public/rules3.pdf
+          [[ $(printf "%(%Y%m%d)T\n" $EPOCHSECONDS) > "20210606" ]] && echo "ok" || exit 1
+      - name: Change the front page
+        run: mv public/609ab724-6240-4b3f-9748-c13d7f6d21a0.html public/index.html
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
