@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Check time
         run: |
-          [[ $(printf "%(%Y%m%d)T\n" $EPOCHSECONDS) > "20210606" ]] && echo "ok" || exit 1
+          [[ $(printf "%(%Y%m%d)T\n" $EPOCHSECONDS) > "20210603" ]] && echo "ok" || exit 1
       - name: Rename rules
         run: mv public/rules.pdf public/rules3.pdf
       - uses: FirebaseExtended/action-hosting-deploy@v0
