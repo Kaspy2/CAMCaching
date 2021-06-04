@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Rename rules
-        run: ls
+        run: mv public/rules.pdf public/rules2.pdf
       # - uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
       #     repoToken: "${{ secrets.GITHUB_TOKEN }}"
