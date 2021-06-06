@@ -8,8 +8,7 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 
 # TODO:
 
-- Rules
-- instructions/about section
+- instructions/about section - maybe link to rules?
 - scoreboard
 - donate section - maybe stripe?
 - images slideshow
@@ -28,3 +27,4 @@ To run locally, `firebase emulators:start` and go to the indicated `Hosting` sit
 - Location edit form
 - Tags
 - Locations Checklist + simple sharing
+- Rules

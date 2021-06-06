@@ -9,6 +9,11 @@
         "source": "/rules",
         "destination": "/rules.pdf",
         "type": 301
+      },
+      {
+        "source": "/dashboard",
+        "destination": "/",
+        "type": 301
       }
     ]
   },
