@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" class="notranslate" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
+    <title>ĊAMCaching</title>
+
+    <link rel="icon" type="image/svg" href="/imgs/cam_thicc.svg" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Asap"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+
+  <body>
+    <header style="height: auto">
+      <div class="titleContainer">
+        <h1>ĊAMCaching</h1>
+      </div>
+    </header>
+
+    <main>
+      <div id="mainContainer">
+        <h1 id="days"></h1>
+        <h1 id="hours"></h1>
+        <h1 id="minutes"></h1>
+        <h1 id="seconds"></h1>
+      </div>
+    </main>
+
+    <audio controls autoplay hidden id="finalCountdown">
+      <!-- <source src="horse.ogg" type="audio/ogg" /> -->
+      <source src="finalCountdown.mp3" type="audio/mpeg" />
+    </audio>
+
+    <footer>
+      <a href="https://www.facebook.com/camyouthsmalta/" target="_blank">
+        <img src="/imgs/facebook.svg" alt="Facebook link" class="grayHover" />
+      </a>
+      <a href="http://www.camyouths.com/" target="_blank">
+        <img
+          src="/imgs/web.svg"
+          alt="CAMYouths website link"
+          class="grayHover"
+        />
+      </a>
+    </footer>
+
+    <script src="/__/firebase/8.4.3/firebase-app.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script>
+      // Set the date we're counting down to
+      var countDownDate = new Date("Jun 7, 2021 00:00:00").getTime();
+
+      const d = document.getElementById("days");
+      const h = document.getElementById("hours");
+      const m = document.getElementById("minutes");
+      const s = document.getElementById("seconds");
+
+      // Update the count down every 1 second
+      var x = setInterval(function () {
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        d.innerHTML = days;
+        h.innerHTML = hours;
+        m.innerHTML = minutes;
+        s.innerHTML = seconds;
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(x);
+          d.innerHTML = 0;
+          h.innerHTML = 0;
+          m.innerHTML = 0;
+          s.innerHTML = 0;
+        }
+      }, 1000);
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        window.ondblclick = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondblclick = null;
+        };
+
+        window.ondevicemotion = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondevicemotion = null;
+        };
+
+        window.ondeviceorientation = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondeviceorientation = null;
+        };
+
+        window.ondeviceorientationabsolute = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondeviceorientationabsolute = null;
+        };
+
+        window.ondrag = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.ondrag = null;
+        };
+
+        window.onfocus = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onfocus = null;
+        };
+
+        window.onkeypress = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onkeypress = null;
+        };
+
+        window.onclick = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onclick = null;
+        };
+
+        window.onmousemove = function () {
+          document
+            .getElementById("finalCountdown")
+            .play()
+            .then()
+            .catch((e) => {});
+          window.onmousemove = null;
+        };
+      });
+    </script>
+
+    <style>
+      @keyframes color-change {
+        0% {
+          /* color: #264653; */
+          color: rgb(255, 85, 0);
+        }
+        25% {
+          /* color: #2a9d8f; */
+          color: rgb(255, 255, 0);
+        }
+        50% {
+          /* color: #e9c46a; */
+          color: rgb(0, 255, 0);
+        }
+        75% {
+          /* color: #f4a261; */
+          color: rgb(0, 213, 255);
+        }
+        100% {
+          /* color: #e76f51; */
+          color: rgb(153, 0, 255);
+        }
+      }
+
+      .titleContainer > h1 {
+        font-size: 12vw !important;
+        margin: 30px 0;
+      }
+      #mainContainer {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0 !important;
+      }
+
+      #mainContainer > h1 {
+        padding: 15px;
+        display: block;
+        border: solid 2px var(--main-txt-color);
+        border-radius: 5px;
+        font-size: 10vw;
+        background-color: var(--main-txt-color);
+        width: 20%;
+        margin: 0.6em 0;
+        animation: color-change 1s infinite;
+      }
+
+      #mainContainer > h1::after {
+        display: block;
+        font-size: 3vw;
+      }
+
+      #mainContainer > h1:nth-child(1):after {
+        content: "DAYS";
+      }
+      #mainContainer > h1:nth-child(2):after {
+        content: "HOURS";
+      }
+      #mainContainer > h1:nth-child(3):after {
+        content: "MINUTES";
+      }
+      #mainContainer > h1:nth-child(4):after {
+        content: "SECONDS";
+      }
+
+      @media only screen and (max-width: 900px) {
+        #mainContainer > h1:nth-child(1):after {
+          content: "D";
+        }
+        #mainContainer > h1:nth-child(2):after {
+          content: "H";
+        }
+        #mainContainer > h1:nth-child(3):after {
+          content: "M";
+        }
+        #mainContainer > h1:nth-child(4):after {
+          content: "S";
+        }
+      }
+    </style>
+  </body>
+</html>
